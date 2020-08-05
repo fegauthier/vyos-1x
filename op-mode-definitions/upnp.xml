@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interfaceDefinition>
+  <node name="restart">
+    <children>
+      <node name="upnp">
+        <properties>
+          <help>Restart the UPnP process</help>
+        </properties>
+        <command>sudo systemctl restart miniupnpd.service</command>
+      </node>
+    </children>
+  </node>
+</interfaceDefinition>

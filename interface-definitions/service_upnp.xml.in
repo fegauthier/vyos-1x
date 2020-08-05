@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<interfaceDefinition>
+  <node name="service">
+    <children>
+      <node name="upnp" owner="${vyos_conf_scripts_dir}/upnp.py">
+        <properties>
+          <help>Universal Plug and Play (UPnP) parameters</help>
+        </properties>
+        <children>
+          <leafNode name="outbound-interface">
+            <properties>
+              <help>Outbound Interface for UPnP [REQUIRED]</help>
+              <completionHelp>
+                <script>${vyos_completion_dir}/list_interfaces.py</script>
+              </completionHelp>
+            </properties>
+          </leafNode>
+          <leafNode name="listen-on">
+            <properties>
+              <help>Listen-On Interface for UPnP [REQUIRED]</help>
+              <completionHelp>
+                <script>${vyos_completion_dir}/list_interfaces.py</script>
+              </completionHelp>
+              <multi/>
+            </properties>
+          </leafNode>
+        </children>
+      </node>
+    </children>
+  </node>
+</interfaceDefinition>
