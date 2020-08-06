@@ -31,7 +31,7 @@ from vyos.template import render
 from vyos import airbag
 airbag.enable()
 
-config_file = r'/etc/miniupnpd.conf'
+config_file = r'/etc/miniupnpd/miniupnpd.conf'
 
 default_config_data = {
     'secure_mode': False,
