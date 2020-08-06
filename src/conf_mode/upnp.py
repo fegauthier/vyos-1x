@@ -60,7 +60,10 @@ def get_config():
         upnp['listening_interfaces'] = conf.return_values(['listen-on'])
         for listen_interface in upnp['listening_interfaces']:
             addresses = netifaces.ifaddresses(listen_interface)
+            print str(addresses)
             interfaceAddress = addresses[netifaces.AF_INET][0]
+            print str(netifaces.AF_INET)
+            print str(interfaceAddress)
             cidr = ipaddress.IPv4Network('0.0.0.0/' + str(interfaceAddress.netmask)).prefixlen
             network = ipaddress.ip_interface(interfaceAddress.addr + '/' + str(cidr))
             upnp['listening_interfaces_network'].append(network)
