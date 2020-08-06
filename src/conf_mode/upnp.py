@@ -63,7 +63,7 @@ def get_config():
             addresses = netifaces.ifaddresses(listen_interface)
             interfaceAddress = addresses[netifaces.AF_INET][0]
             cidr = netaddr.IPAddress(interfaceAddress['netmask']).netmask_bits()
-            network = ipaddress.ip_interface(interfaceAddress.addr + '/' + str(cidr))
+            network = ipaddress.ip_interface(interfaceAddress['addr'] + '/' + str(cidr))
             upnp['listening_interfaces_network'].append(network)
 
     return upnp
