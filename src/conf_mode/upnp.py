@@ -15,6 +15,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import ipaddress
+import netaddr
 import netifaces
 import os
 import uuid
@@ -60,11 +61,8 @@ def get_config():
         upnp['listening_interfaces'] = conf.return_values(['listen-on'])
         for listen_interface in upnp['listening_interfaces']:
             addresses = netifaces.ifaddresses(listen_interface)
-            print(addresses)
             interfaceAddress = addresses[netifaces.AF_INET][0]
-            print(netifaces.AF_INET)
-            print(interfaceAddress)
-            cidr = ipaddress.IPv4Network('0.0.0.0/' + str(interfaceAddress.netmask)).prefixlen
+            cidr = netaddr.IPAddress(interfaceAddress['netmask']).netmask_bits()
             network = ipaddress.ip_interface(interfaceAddress.addr + '/' + str(cidr))
             upnp['listening_interfaces_network'].append(network)
 
