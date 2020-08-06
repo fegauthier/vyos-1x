@@ -38,7 +38,7 @@ default_config_data = {
     'notify_interval': 60,
     'clean_ruleset_interval': 600,
     'uuid': str(uuid.uuid4()),
-    'outbound-interface': None,
+    'outbound_interface': None,
     'listening_interfaces': [],
     'listening_interfaces_network': [],
 }
@@ -54,11 +54,11 @@ def get_config():
 
     # Network interfaces to listen on
     if conf.exists(['outbound-interface']):
-        upnp['outbound-interface'] = conf.return_value(['outbound-interface'])
+        upnp['outbound_interface'] = conf.return_value(['outbound-interface'])
 
     if conf.exists(['listen-on']):
-        upnp['listening_interfaces'] = conf.return_values(['listen_on'])
-        for listen_interface in conf.return_values(['listen_on']):
+        upnp['listening_interfaces'] = conf.return_values(['listen-on'])
+        for listen_interface in upnp['listening_interfaces']:
             addresses = netifaces.ifaddresses(listen_interface)
             interfaceAddress = addresses[netifaces.AF_INET][0]
             cidr = ipaddress.IPv4Network('0.0.0.0/' + str(interfaceAddress.netmask)).prefixlen
@@ -72,11 +72,11 @@ def verify(upnp):
         return None
 
     # at least one outbound-interface
-    if upnp['outbound-interface'] is None:
+    if upnp['outbound_interface'] is None:
         raise ConfigError('Must define the outbound-interface!')
 
     # check if the outbound-interface exist
-    if upnp['outbound-interface'] not in netifaces.interfaces():
+    if upnp['outbound_interface'] not in netifaces.interfaces():
         raise ConfigError('Interface "{}" does not exist'.format(upnp['outbound-interface']))
 
     # at least one listen-on interface is needed

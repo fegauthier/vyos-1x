@@ -8,7 +8,7 @@
 #
 ########################################################
 
-ext_ifname={{ outbound-interface }}
+ext_ifname={{ outbound_interface }}
 
 {%- for interface in listening_interfaces %}
 listening_ip={{ interface }}
@@ -33,3 +33,5 @@ uuid={{ uuid }}
 {%- for network in listening_interfaces_network %}
 allow 1024-65535 {{ network }} 1024-65535
 {%- endfor %}
+
+deny 0-65535 0.0.0.0/0 0-65535
